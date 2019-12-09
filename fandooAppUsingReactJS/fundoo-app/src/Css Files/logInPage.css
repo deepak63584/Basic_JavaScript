@@ -1,0 +1,51 @@
+.containerView{
+    display : flex;
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 31%;
+    min-width: 323px;
+}
+
+.tilteView{
+    display : flex;
+    margin-top: 6%;
+    justify-content: center;
+}
+
+.subtilteView{
+    display : flex;
+    margin-top: 4%;
+    justify-content: center;
+}
+.account{
+    display : flex;
+    margin-top: 4%;
+    justify-content: center;
+}
+.emailId{
+    display : flex;
+    margin-top: 4%;
+    margin-left: 10%;
+    margin-right: 15%;
+}
+.passWord{
+    display: flex;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-right: 15%;
+
+}
+.forgatePassword{
+    display: flex;
+    margin-top: 2%;
+    margin-left: 10%;
+}
+.buttonLink{
+    display: flex;
+    margin-top: 4%;
+    margin-left: 10%;
+    margin-right: 15%;
+}

@@ -65,73 +65,80 @@ class InventoryDetails {
         this.data.Rice.push({
             name: _name,
             weight: _weight,
-            price: _price
+ < div className = "imageview" >
+        <div className="imageContainer">
+            <Container className="image">
+                <img src={sighUpLogo} />
+            </Container>
+        </div>
+                            </div >
+                        </div > price: _price
 
         })
-    }
-    addPulse() {
-        var _name = rl.question('enter the name :');
-        var _price = rl.questionInt('enter the price : ');
-        var _weight = rl.questionInt('enter the weight :');
-        this.data.Pulses.push({
-            name: _name,
-            weight: _weight,
-            price: _price
-        })
-    }
-    addWheats() {
-        var _name = rl.question('enter the name :');
-        var _price = rl.questionInt('enter the price : ');
-        var _weight = rl.questionInt('enter the weight :');
-        this.data.Wheats.push({
-            name: _name,
-            weight: _weight,
-            price: _price
+}
+addPulse() {
+    var _name = rl.question('enter the name :');
+    var _price = rl.questionInt('enter the price : ');
+    var _weight = rl.questionInt('enter the weight :');
+    this.data.Pulses.push({
+        name: _name,
+        weight: _weight,
+        price: _price
+    })
+}
+addWheats() {
+    var _name = rl.question('enter the name :');
+    var _price = rl.questionInt('enter the price : ');
+    var _weight = rl.questionInt('enter the weight :');
+    this.data.Wheats.push({
+        name: _name,
+        weight: _weight,
+        price: _price
 
-        })
-    }
-    removeRice() {
-        var rice = "absent";
-        var item = rl.question("Enter the rice Name:");
-        for (var i = 0; i < this.data.Rice.length; i++) {
-            if (this.data.Rice[i].name == item) {
-                rice = "present";
-                var index = this.data.Rice.indexOf(this.data.Rice[i]);
-                this.data.Rice.splice(index, 1);
-                console.log(item + " rice remove from Inventory Details");
-            }
+    })
+}
+removeRice() {
+    var rice = "absent";
+    var item = rl.question("Enter the rice Name:");
+    for (var i = 0; i < this.data.Rice.length; i++) {
+        if (this.data.Rice[i].name == item) {
+            rice = "present";
+            var index = this.data.Rice.indexOf(this.data.Rice[i]);
+            this.data.Rice.splice(index, 1);
+            console.log(item + " rice remove from Inventory Details");
         }
-        if (rice == "absent")
-            console.log("enter valid details.");
     }
-    removePulse() {
-        var Pulses = "absent";
-        var item = rl.question("Enter the Pulse Name:");
-        for (var i = 0; i < this.data.Pulses.length; i++) {
-            if (this.data.Pulses[i].name == item) {
-                Pulses = "present";
-                var index = this.data.Pulses.indexOf(this.data.Pulses[i]);
-                this.data.Pulses.splice(index, 1);
-                console.log(item + " Pulse remove from Inventory Details");
-            }
+    if (rice == "absent")
+        console.log("enter valid details.");
+}
+removePulse() {
+    var Pulses = "absent";
+    var item = rl.question("Enter the Pulse Name:");
+    for (var i = 0; i < this.data.Pulses.length; i++) {
+        if (this.data.Pulses[i].name == item) {
+            Pulses = "present";
+            var index = this.data.Pulses.indexOf(this.data.Pulses[i]);
+            this.data.Pulses.splice(index, 1);
+            console.log(item + " Pulse remove from Inventory Details");
         }
-        if (Pulses == "absent")
-            console.log("enter valid details.");
     }
-    removeWheats() {
-        var Wheats = "absent";
-        var item = rl.question("Enter the Wheat Name:");
-        for (var i = 0; i < this.data.Wheats.length; i++) {
-            if (this.data.Wheats[i].name == item) {
-                Wheats = "present";
-                var index = this.data.Wheats.indexOf(this.data.Wheats[i]);
-                this.data.Wheats.splice(index, 1);
-                console.log(item + " Wheats remove from Inventory Details");
-            }
+    if (Pulses == "absent")
+        console.log("enter valid details.");
+}
+removeWheats() {
+    var Wheats = "absent";
+    var item = rl.question("Enter the Wheat Name:");
+    for (var i = 0; i < this.data.Wheats.length; i++) {
+        if (this.data.Wheats[i].name == item) {
+            Wheats = "present";
+            var index = this.data.Wheats.indexOf(this.data.Wheats[i]);
+            this.data.Wheats.splice(index, 1);
+            console.log(item + " Wheats remove from Inventory Details");
         }
-        if (Wheats == "absent")
-            console.log("enter valid details.");
     }
+    if (Wheats == "absent")
+        console.log("enter valid details.");
+}
 
 
 
@@ -170,3 +177,18 @@ class InventoryManger {
 }
 var invent = new InventoryManger()
 invent.manage();
+
+
+
+
+
+
+
+
+<div className="imageview">
+    <div className="imageContainer">
+        <Container className="image">
+            <img src={sighUpLogo} />
+        </Container>
+    </div>
+</div>
