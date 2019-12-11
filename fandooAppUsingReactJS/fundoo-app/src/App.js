@@ -1,17 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
+import Routing from './router';
 import './App.css';
-//import ShoppingList from './components/ShoppingList';
-import Signup from './Component/signUp';
-import SignIn from './Component/signIn';
+import SignIn from '../src/Component/signIn';
 
 function App() {
   return (
     <div>
+      <Routing />
       {/* <SignIn /> */}
-      <Signup />
     </div>
   );
 }
-
 export default App;
