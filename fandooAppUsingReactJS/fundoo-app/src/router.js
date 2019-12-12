@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SignIn from '../src/Component/signIn';
-import Signup from '../src/Component/signUp';
-import Dashboard from '../src/Component/dashboard';
-import ForgatePassword from '../src/Component/forgatePassword';
+import SignIn from '../src/Component/SignIn';
+import Signup from '../src/Component/SignUp';
+import Dashboard from '../src/Component/Dashboard';
+import ForgatePassword from '../src/Component/ForgatePassword';
 
 function Routing() {
     return (

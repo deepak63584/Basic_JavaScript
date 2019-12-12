@@ -17,9 +17,9 @@ class SignIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            emailid: '',
-            password: '',
-            showpassword: 'false',
+            emailid: "",
+            password: "",
+            showpassword: "false",
             errors: {},
         };
         this.submitForm = this.submitForm.bind(this);
@@ -32,7 +32,7 @@ class SignIn extends Component {
         })
     }
 
-    login = () => {
+    toDashboard = () => {
         firebase.auth().signInWithEmailAndPassword(this.state.emailid, this.state.password).then(() => {
             this.props.history.push('/dashboard');
         })
@@ -53,55 +53,6 @@ class SignIn extends Component {
     handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-
-
-    validateForm = () => {
-
-        let errors = {};
-        var formIsValid = true;
-
-        if (!this.state.emailid) {
-            formIsValid = false;
-            errors["emailid"] = "Please enter your email-ID.";
-        }
-
-        if (typeof this.state.emailid !== "undefined") {
-            //regex used for email validation
-            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-            if (!pattern.test(this.state.emailid)) {
-                formIsValid = false;
-                errors["emailid"] = "Please enter valid emailID.";
-            }
-        }
-
-        if (!this.state.password) {
-            formIsValid = false;
-            errors["password"] = "Please enter your password.";
-        }
-
-        if (typeof this.state.password !== "undefined") {
-            if (!this.state.password.match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
-                formIsValid = false;
-                errors["password"] = "Please enter secure and strong password.";
-            }
-        }
-
-        this.setState({
-            errors: errors
-        });
-
-        return formIsValid;
-    }
-    submitForm(event) {
-        event.preventDefault();
-        if (this.validateForm()) {
-            this.setState({
-                [event.target.name]: event.target.value,
-                [event.target.formvalid]: !event.target.formvalid
-            })
-            this.login();
-        }
-    }
 
     render() {
         return (
@@ -124,8 +75,7 @@ class SignIn extends Component {
                                 <text>Use your Fundoo Account</text>
                             </div>
                             <div className="emailId">
-                                <TextField
-                                    id="outlined-basic"
+                                <TextField id="outlined-basic"
                                     margin="dense"
                                     label="Enter email"
                                     variant="outlined"
@@ -141,8 +91,7 @@ class SignIn extends Component {
                                 <FormControl variant="outlined"
                                     fullWidth error={this.state.errors.password}>
                                     <InputLabel>Password</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-basic"
+                                    <OutlinedInput id="outlined-basic"
                                         fullWidth={true}
                                         variant="outlined"
                                         margin="dense"
@@ -152,22 +101,20 @@ class SignIn extends Component {
                                         onChange={this.handleChange}
                                         error={this.state.errors.password}
                                         helperText={this.state.errors.password}
-                                        endAdornment={
-                                            <InputAdornment position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={this.handleChangeShowPassword}
-                                                    onMouseDown={this.handleMouseDownPassword}
-                                                    edge="end">
-                                                    {this.state.showpassword ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                            </InputAdornment>}
-                                    />
+                                        endAdornment={<InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={this.handleChangeShowPassword}
+                                                onMouseDown={this.handleMouseDownPassword}
+                                                edge="end">
+                                                {this.state.showpassword ? <Visibility /> : <VisibilityOff />}
+                                            </IconButton></InputAdornment>} />
                                     <FormHelperText error>{this.state.errors.password}</FormHelperText>
                                 </FormControl>
                             </div>
                             <div className="forgatePassword">
                                 <Button
+                                    color="primary"
                                     onClick={() => {
                                         this.props.history.push('/forgatepassword')
                                     }}>
@@ -178,6 +125,7 @@ class SignIn extends Component {
                                 <div>
                                     <Button
                                         type="submit"
+                                        color="primary"
                                         onClick={() => {
                                             this.props.history.push('/signup')
                                         }}>
@@ -193,15 +141,61 @@ class SignIn extends Component {
                                         onClick={this.submitForm}>
                                         Next
                                     </Button>
-                                </div>
-                            </div><p></p>
+                                </div> </div><p></p>
                         </div>
-
                     </Container>
                 </div>
                 );
             </div>
         );
+    }
+
+    validation = () => {
+
+        let errors = {};
+        var validform = true;
+
+        if (!this.state.emailid) {
+            validform = false;
+            errors["emailid"] = "Please enter your email-ID.";
+        }
+
+        if (typeof this.state.emailid !== "undefined") {
+            //regex used for email validation
+            var pattern = new RegExp(/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/);
+            if (!pattern.test(this.state.emailid)) {
+                validform = false;
+                errors["emailid"] = "Please enter valid emailID.";
+            }
+        }
+
+        if (!this.state.password) {
+            validform = false;
+            errors["password"] = "Please enter your password.";
+        }
+
+        if (typeof this.state.password !== "undefined") {
+            if (!this.state.password.match(/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+                validform = false;
+                errors["password"] = "Please enter secure and strong password.";
+            }
+        }
+
+        this.setState({
+            errors: errors
+        });
+        return validform;
+    }
+
+    submitForm(event) {
+        event.preventDefault();
+        if (this.validation()) {
+            this.setState({
+                [event.target.name]: event.target.value,
+                [event.target.formvalid]: !event.target.formvalid
+            })
+            this.toDashboard();
+        }
     }
 }
 export default SignIn;

@@ -21,128 +21,8 @@ class Signup extends Component {
             showpassword: 'false',
             errors: {},
         };
-        this.writeUserData = this.writeUserData.bind(this);
-
+        this.newUser = this.newUser.bind(this);
     }
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-
-    handleChangeShowPassword = () => {
-        this.setState({
-            showpassword: !this.state.showpassword
-        })
-    }
-
-    handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-
-
-    validateForm = () => {
-
-        let errors = {};
-        var formIsValid = true;
-
-        if (!this.state.firstname) {
-            formIsValid = false;
-            errors["firstname"] = "*Please enter your First Name.";
-        }
-
-        if (!this.state.lastname) {
-            formIsValid = false;
-            errors["lastname"] = "*Please enter your Last Name.";
-        }
-
-        if (!this.state.emailid) {
-            formIsValid = false;
-            errors["emailid"] = "*Please enter your email-ID.";
-        }
-
-        if (typeof this.state.emailid !== "undefined") {
-            //regex used for email validation
-            var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-            if (!pattern.test(this.state.emailid)) {
-                formIsValid = false;
-                errors["emailid"] = "*Please enter valid email-ID.";
-            }
-        }
-
-        if (!this.state.passworditem) {
-            formIsValid = false;
-            errors["password"] = "*Please enter your password.";
-        }
-
-        if (typeof this.state.passworditem !== "undefined") {
-            if (!this.state.passworditem.match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
-                formIsValid = false;
-                errors["password"] = "*Please enter secure and strong password.";
-            }
-        }
-
-        if (!this.state.confirmpass) {
-            formIsValid = false;
-            errors["confirmpassword"] = "*Please confirm your password.";
-        }
-
-        if (typeof this.state.confirmpass !== "undefined") {
-            if (this.state.confirmpass !== this.state.passworditem) {
-                formIsValid = false;
-                errors["confirmpassword"] = "*Password does not match.";
-            }
-        }
-
-        this.setState({
-            errors: errors
-        });
-        console.log("hfskjidghfdosigfhdfj");
-
-        return formIsValid;
-    }
-
-    RegistrationForm = (event) => {
-        console.log('resi1');
-
-        event.preventDefault();
-        if (this.validateForm()) {
-            this.setState({
-                [event.target.name]: event.target.value,
-                [event.target.formvalid]: !event.target.formvalid
-            })
-            //alert("You have Login Successfully !");
-            console.log('caling user data');
-
-            this.writeUserData();
-        }
-    }
-
-    writeUserData() {
-        console.log("writedata1");
-
-        firebase.auth().createUserWithEmailAndPassword(this.state.emailid, this.state.passworditem).then(() => {
-            firebase.database().ref('users/').push({
-                firstname: this.state.firstname,
-                lastname: this.state.lastname,
-                emailid: this.state.emailid,
-                passworditem: this.state.passworditem
-            })
-            this.props.history.push('/');
-            console.log("writedata2");
-
-        })
-            .catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log('Error code : ' + errorCode);
-                console.log('Error Msg : ' + errorMessage);
-                // ...
-            });
-    }
-
-
     render() {
         return (
 
@@ -229,14 +109,13 @@ class Signup extends Component {
                                         error={this.state.errors.confirmpassword}
                                         helperText={this.state.errors.confirmpassword} />
                                     <IconButton
-                                        aria-label="toggle password visibility"
                                         onClick={this.handleChangeShowPassword}
                                         onMouseDown={this.handleMouseDownPassword}>
                                         {this.state.showpassword ? <Visibility /> : <VisibilityOff />}
                                     </IconButton>
                                 </div>
                                 <div className="passwordpara">
-                                    <p margin="dense"> Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                                    <p margin="dense"> Use 6 or more characters with a mix of letters, numbers & symbols</p>
                                 </div>
 
                                 <div className="buttonlink">
@@ -250,8 +129,7 @@ class Signup extends Component {
                                     <Button
                                         color="primary"
                                         variant="contained"
-
-                                        onClick={this.RegistrationForm}>
+                                        onClick={this.register}>
                                         Next
                                     </Button>
                                 </div>
@@ -273,6 +151,121 @@ class Signup extends Component {
                 </div >
             </div >
         );
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    handleChangeShowPassword = () => {
+        this.setState({
+            showpassword: !this.state.showpassword
+        })
+    }
+
+    handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    validation = () => {
+
+        let errors = {};
+        var validform = true;
+
+        if (!this.state.firstname) {
+            validform = false;
+            errors["firstname"] = "Please enter your First Name.";
+        }
+
+        if (!this.state.lastname) {
+            validform = false;
+            errors["lastname"] = "Please enter your Last Name.";
+        }
+
+        if (!this.state.emailid) {
+            validform = false;
+            errors["emailid"] = "Please enter your emailID.";
+        }
+
+        if (typeof this.state.emailid !== "undefined") {
+            //regex used for email validation
+            var pattern = new RegExp(/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/);
+            if (!pattern.test(this.state.emailid)) {
+                validform = false;
+                errors["emailid"] = "Please enter valid email in formate of number letter and specail charecter";
+            }
+        }
+
+        if (!this.state.passworditem) {
+            validform = false;
+            errors["password"] = "Please enter your password.";
+        }
+
+        if (typeof this.state.passworditem !== "undefined") {
+            if (!this.state.passworditem.match(/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+                validform = false;
+                errors["password"] = "*Please enter secure and strong password.";
+            }
+        }
+
+        if (!this.state.confirmpass) {
+            validform = false;
+            errors["confirmpassword"] = "*Please confirm your password.";
+        }
+
+        if (typeof this.state.confirmpass !== "undefined") {
+            if (this.state.confirmpass !== this.state.passworditem) {
+                validform = false;
+                errors["confirmpassword"] = "*Password does not match.";
+            }
+        }
+
+        this.setState({
+            errors: errors
+        });
+        //console.log("hfskjidghfdosigfhdfj");
+
+        return validform;
+    }
+
+    register = (event) => {
+        //console.log('resi1');
+
+        event.preventDefault();
+        if (this.validation()) {
+            this.setState({
+                [event.target.name]: event.target.value,
+                [event.target.formvalid]: !event.target.formvalid
+            })
+            //console.log('caling user data');
+            this.newUser();
+        }
+    }
+
+    newUser() {
+        //console.log("writedata1");
+
+        firebase.auth().createUserWithEmailAndPassword(this.state.emailid, this.state.passworditem).then(() => {
+            firebase.database().ref('users/').push({
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                emailid: this.state.emailid,
+                passworditem: this.state.passworditem
+            })
+            this.props.history.push('/');
+            //console.log("writedata2");
+
+        })
+            .catch((error) => {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log('Error code : ' + errorCode);
+                console.log('Error Msg : ' + errorMessage);
+                // ...
+            });
     }
 }
 export default Signup;

@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 
-class UserProfile extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div className="fullView">
@@ -18,7 +18,7 @@ class UserProfile extends Component {
                                 <form style={{ color: '#0F9D58' }}>o</form>
                                 <form style={{ color: '#DB4437' }}>o</form>
                             </div>
-                            <text>Welcome</text>
+                            <text>Welcome to the Dashboard</text>
                         </div>
                     </Container>
                 </div>
@@ -26,4 +26,4 @@ class UserProfile extends Component {
         );
     }
 }
-export default UserProfile;
+export default Dashboard;
