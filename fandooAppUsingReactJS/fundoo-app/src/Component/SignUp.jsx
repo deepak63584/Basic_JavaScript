@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import firebase from '../firebase';
+import FandooLogo from './image/gridview.svg'
 
 class Signup extends Component {
     constructor(props) {
@@ -46,7 +47,7 @@ class Signup extends Component {
                                     <TextField id="outlined-basic"
                                         margin="dense"
                                         style={{ margin: 8 }}
-                                        label="FirstName"
+                                        label="First Name"
                                         variant="outlined"
                                         value={this.state.firstname}
                                         onChange={this.handleChange}
@@ -56,7 +57,7 @@ class Signup extends Component {
                                     <TextField id="outlined-basic"
                                         margin="dense"
                                         style={{ margin: 8 }}
-                                        label="LastName"
+                                        label="Last Name"
                                         variant="outlined"
                                         value={this.state.lastname}
                                         onChange={this.handleChange}
@@ -111,7 +112,7 @@ class Signup extends Component {
                                     <IconButton
                                         onClick={this.handleChangeShowPassword}
                                         onMouseDown={this.handleMouseDownPassword}>
-                                        {this.state.showpassword ? <Visibility /> : <VisibilityOff />}
+                                        {this.state.showpassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </div>
                                 <div className="passwordpara">
@@ -260,10 +261,10 @@ class Signup extends Component {
         })
             .catch((error) => {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log('Error code : ' + errorCode);
-                console.log('Error Msg : ' + errorMessage);
+                //var errorCode = error.code;
+                //var errorMessage = error.message;
+                console.log('Error code : ' + error.code);
+                console.log('Error Msg : ' + error.message);
                 // ...
             });
     }

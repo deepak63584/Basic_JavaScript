@@ -32,10 +32,10 @@ class ForgatePassword extends Component {
             var errorMessage = error.message;
             console.log('Error code : ' + errorCode);
             console.log('Error Msg : ' + errorMessage);
-            alert(errorCode)
+            alert(error.code)
             errors["emailid"] = errorMessage;
             this.setState({
-                error: errors
+                errors: errors
             });
         });
     }
@@ -65,7 +65,7 @@ class ForgatePassword extends Component {
 
     submitForm(event) {
         event.preventDefault();
-        if (this.validation()) {
+        if (this.validateEmail()) {
             this.setState({
                 [event.target.name]: event.target.value,
                 [event.target.formvalid]: !event.target.formvalid
@@ -97,14 +97,20 @@ class ForgatePassword extends Component {
                                 <TextField
                                     id="outlined-basic"
                                     margin="dense"
-                                    label="Enter Email"
+                                    label="Enter email"
                                     variant="outlined"
+                                    value={this.state.emailid}
+                                    onChange={this.handleChange}
                                     name="emailid"
+                                    error={this.state.errors.emailid}
+                                    helperText={this.state.errors.emailid}
                                     fullWidth={true}
                                 />
                             </div>
                             <div className="nextRef" >
-                                <Button margin="dense" variant="contained" color="primary">
+                                <Button margin="dense" variant="contained" color="primary"
+                                    onClick={this.forgatePassword}
+                                >
                                     Next
                                 </Button>
                                 <p></p>

@@ -107,7 +107,7 @@ class SignIn extends Component {
                                                 onClick={this.handleChangeShowPassword}
                                                 onMouseDown={this.handleMouseDownPassword}
                                                 edge="end">
-                                                {this.state.showpassword ? <Visibility /> : <VisibilityOff />}
+                                                {this.state.showpassword ? <VisibilityOff /> : <Visibility />}
                                             </IconButton></InputAdornment>} />
                                     <FormHelperText error>{this.state.errors.password}</FormHelperText>
                                 </FormControl>
@@ -162,7 +162,7 @@ class SignIn extends Component {
 
         if (typeof this.state.emailid !== "undefined") {
             //regex used for email validation
-            var pattern = new RegExp(/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/);
+            var pattern = new RegExp(/^[a-zA-Z0-9-.]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/);
             if (!pattern.test(this.state.emailid)) {
                 validform = false;
                 errors["emailid"] = "Please enter valid emailID.";
