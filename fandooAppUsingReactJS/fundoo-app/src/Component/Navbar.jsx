@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,7 +13,17 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ViewStreamIcon from "@material-ui/icons/ViewStream";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import slideListBar from './SlideBar';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+
+
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -55,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
+        padding: theme.spacing(2, 2, 1, 7),
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("md")]: {
@@ -73,16 +82,29 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("md")]: {
             display: "none"
         }
+    }, list: {
+        width: 250,
+    },
+    fullList: {
+        width: 'auto',
     }
+
 }));
 
 export default function PrimarySearchAppBar() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    const [anchorEl, setAnchorEl] = React.useState(false);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(false);
+    const [state, setstate] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const handleDrawerOpen = () => {
+        setstate(true);
+    }
+    const handleDrawerClose = () => {
+        setstate(false);
+    }
 
     const handleProfileMenuOpen = event => {
         setAnchorEl(event.currentTarget);
@@ -160,6 +182,42 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
+    const toggleDrawer = (side, open) => event => {
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        //setState({ ...state, [side]: open });
+    };
+
+    const sideList = side => (
+        <div
+            className={classes.list}
+            role="presentation"
+            onClick={toggleDrawer(side, false)}
+            onKeyDown={toggleDrawer(side, false)}
+        >
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </div>
+    );
+
+
     return (
         <div className={classes.grow}>
             <AppBar position="static" color="inherit">
@@ -169,7 +227,7 @@ export default function PrimarySearchAppBar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={slideListBar}
+                        onClick={!state ? handleDrawerOpen : handleDrawerClose}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -228,6 +286,11 @@ export default function PrimarySearchAppBar() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            <Drawer open={state}
+                anchor="left"
+                varient="persistaent">
+                {sideList}
+            </Drawer>
         </div>
     );
 }

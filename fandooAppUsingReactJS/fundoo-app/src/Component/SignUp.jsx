@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import firebase from '../firebase';
-import FandooLogo from './image/gridview.svg'
 
 class Signup extends Component {
     constructor(props) {
@@ -82,7 +81,7 @@ class Signup extends Component {
                                         error={this.state.errors.emailid}
                                         helperText={this.state.errors.emailid} />
                                     <div className="emailPara">
-                                        <p margin="dense">You can use letters,numbers & periods</p>
+                                        <p margin="dense">You can use letters, numbers & periods</p>
                                     </div>
                                 </div>
 
@@ -261,8 +260,6 @@ class Signup extends Component {
         })
             .catch((error) => {
                 // Handle Errors here.
-                //var errorCode = error.code;
-                //var errorMessage = error.message;
                 console.log('Error code : ' + error.code);
                 console.log('Error Msg : ' + error.message);
                 // ...
